@@ -49,6 +49,16 @@ public class ClienteController {
         }
         return ResponseEntity.ok(cliente);
     }
+
+    @PostMapping("/guardar/clientes")
+    public ResponseEntity<String> guardarClientes(@RequestBody List<Cliente> clientes) {
+        
+        String mensaje = clienteservice.guardarClientes(clientes);
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensaje);
+        
+       
+    }
+    
     
 
     @PostMapping("/guardar")
@@ -60,7 +70,7 @@ public class ClienteController {
                 .body("Ya existe un cliente con el RUT: " + cliente.getRut());
         }
         
-        String mensaje = clienteservice.guardarClientes(cliente);
+        String mensaje = clienteservice.guardarCliente(cliente);
         if (mensaje.contains("Esa id de dirección ya fue agregada")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(mensaje);

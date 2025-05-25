@@ -21,13 +21,19 @@ public class ClienteService {
         return clienterepository.findAll();
     }
 
-    public String guardarClientes(Cliente cliente){
+    public String guardarCliente(Cliente cliente){
         Cliente clienteConDireccion = buscarPorIdDireccion(cliente.getDireccion().getId_direccion());
         if (clienteConDireccion != null) {
             return "Esa id de dirección ya fue agregada en otro cliente";
         }
         clienterepository.save(cliente);
         return "El cliente con el siguiente ID: "+ cliente.getIdCliente()+ " fue guardado con exito";
+    }
+
+    public String guardarClientes(List<Cliente> clientes){
+
+        clienterepository.saveAll(clientes);
+        return "Se agregaron : "+ clientes.size()+ " clientes";
     }
 
     public String actualizarCliente(Cliente cliente){

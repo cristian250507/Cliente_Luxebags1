@@ -47,7 +47,7 @@ public class Cliente {
     private Direccion direccion;
 
     @ManyToOne
-    @JoinColumn(name = "id_historial", nullable = false)
+    @JoinColumn(name = "id_historial", nullable = true)
     private HistorialDeCompra historialdecompra;
     
 
