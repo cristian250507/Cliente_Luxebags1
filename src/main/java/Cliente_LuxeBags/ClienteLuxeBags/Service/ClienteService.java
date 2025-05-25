@@ -31,10 +31,19 @@ public class ClienteService {
     }
 
     public String guardarClientes(List<Cliente> clientes){
-
-        clienterepository.saveAll(clientes);
-        return "Se agregaron : "+ clientes.size()+ " clientes";
-    }
+        
+        for (Cliente cliente : clientes) {
+            if (cliente.getDireccion() == null || cliente.getDireccion().getId_direccion() == null) {
+                return "Error: La dirección o su ID no puede ser null";
+            }
+            Cliente clienteConDireccion = buscarPorIdDireccion(cliente.getDireccion().getId_direccion());
+            if (clienteConDireccion != null) {
+                return "Esa id de dirección ya fue agregada en otro cliente";
+            }
+            clienterepository.save(cliente);
+        }
+        return "Clientes guardados con éxito";
+    }    
 
     public String actualizarCliente(Cliente cliente){
         clienterepository.save(cliente);
@@ -49,6 +58,14 @@ public class ClienteService {
     public Cliente buscarPorId (Integer idCliente){
         return clienterepository.findById(idCliente).orElse(null);
     }
+
+    public Cliente buscarPorIdDireccion(Integer idDireccion) {
+        if (idDireccion == null) {
+            throw new IllegalArgumentException("El ID de dirección no puede ser null");
+        }
+        return clienterepository.findById(idDireccion).orElse(null);
+    }
+
 
     public Cliente buscarPorRut(String rut) {
         return clienterepository.findByRut(rut);
