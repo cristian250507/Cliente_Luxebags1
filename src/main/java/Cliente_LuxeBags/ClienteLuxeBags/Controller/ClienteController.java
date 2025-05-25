@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 
+
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -31,13 +33,23 @@ public class ClienteController {
     private ClienteService clienteservice;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Cliente>> listarCliente() {
+    public ResponseEntity<List<Cliente>> listarClientes() {
         List<Cliente> clientes = clienteservice.listarClientes();
         if (clientes.isEmpty()) {
             return ResponseEntity.noContent().build(); // 204 Content
         }
         return ResponseEntity.ok(clientes);
     }
+
+    @GetMapping("/listar/ID/{idCliente}")
+    public ResponseEntity<Cliente> ListarClientes(@PathVariable Integer idCliente) {
+        Cliente cliente = clienteservice.buscarPorId(idCliente);
+        if (cliente==null) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(cliente);
+    }
+    
 
     @PostMapping("/guardar")
     public ResponseEntity<String> guardarCliente(@RequestBody Cliente cliente) {
