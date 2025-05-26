@@ -28,4 +28,12 @@ public class HistorialDeCompraService {
         return "Se guardo el historial de compra con el siguiente ID: " + historialDeCompra.getId_historial();
     }
 
+    public HistorialDeCompra buscarporId(String id_historial){
+        return historialdecompracontroller.findById(id_historial).orElse(null);
+    }
+
+    public String eliminarPorID(String id_historial){
+         historialdecompracontroller.deleteById(id_historial);
+        return "Se elimino el Historial con el siguiente ID: " + id_historial;
+    }
 }
