@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Cliente_LuxeBags.ClienteLuxeBags.Model.Cliente;
 import Cliente_LuxeBags.ClienteLuxeBags.Model.HistorialDeCompra;
 import Cliente_LuxeBags.ClienteLuxeBags.Service.HistorialDeCompraService;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -56,6 +59,20 @@ public class HistorialController {
         String mensaje = historialDeCompraService.eliminarPorID(id);
         return ResponseEntity.ok(mensaje);  // 200 OK con el mensaje de éxito
     }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<String> actualizarHistorial(@RequestBody HistorialDeCompra historialdecompra) {
+        HistorialDeCompra historialdecompraExiste = historialDeCompraService.buscarporId(historialdecompra.getId_historial());
+        if (historialdecompraExiste == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Historial con id: "+ historialdecompraExiste.getId_historial()+ "no encontrado");
+        }
+        historialdecompraExiste.setFecha_compra(historialdecompra.getFecha_compra());
+        historialdecompraExiste.setMonto(historialdecompra.getMonto());
+        String mensaje = historialDeCompraService.actualizarhistorial(historialdecompraExiste);
+        return ResponseEntity.ok(mensaje);  // 200 OK con el mensaje de éxito
+    }
+
+
 
 
 

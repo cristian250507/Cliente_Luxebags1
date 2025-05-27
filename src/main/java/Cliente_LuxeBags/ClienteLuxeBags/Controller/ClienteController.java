@@ -81,7 +81,7 @@ public class ClienteController {
     public ResponseEntity<String> actualizarCliente(@RequestBody Cliente cliente) {
         Cliente clienteExtistente =  clienteservice.buscarPorRut(cliente.getRut());
         if (clienteExtistente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente con Id"+ cliente.getIdCliente()+ "no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente con rut"+ cliente.getIdCliente()+ "no encontrado");
         }
         clienteExtistente.setNombres(cliente.getNombres());
         clienteExtistente.setApellidos(cliente.getApellidos());
@@ -100,7 +100,7 @@ public class ClienteController {
         }
 
         String mensaje = clienteservice.eliminarCliente(id);
-        return ResponseEntity.ok(mensaje);  // 200 OK con el mensaje de éxito
+        return ResponseEntity.ok(mensaje); 
     }
 
 

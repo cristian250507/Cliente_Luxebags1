@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import Cliente_LuxeBags.ClienteLuxeBags.Model.HistorialDeCompra;
 
 @Repository
-public interface HistorialDeCompraController extends JpaRepository<HistorialDeCompra, String > {
+public interface HistorialDeCompraRepository extends JpaRepository<HistorialDeCompra, String > {
 
 
     

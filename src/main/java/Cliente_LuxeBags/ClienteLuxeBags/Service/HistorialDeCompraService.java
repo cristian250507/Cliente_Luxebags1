@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Cliente_LuxeBags.ClienteLuxeBags.Model.HistorialDeCompra;
-import Cliente_LuxeBags.ClienteLuxeBags.Repository.HistorialDeCompraController;
+import Cliente_LuxeBags.ClienteLuxeBags.Repository.HistorialDeCompraRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -16,24 +16,29 @@ public class HistorialDeCompraService {
 
     @Autowired
 
-    private HistorialDeCompraController historialdecompracontroller;
+    private HistorialDeCompraRepository historialdecomprarepository;
 
 
     public List<HistorialDeCompra> listarHistorial(){
-        return historialdecompracontroller.findAll();
+        return historialdecomprarepository.findAll();
     }
 
     public String guardarHistorial(HistorialDeCompra historialDeCompra){
-        historialdecompracontroller.save(historialDeCompra);
+        historialdecomprarepository.save(historialDeCompra);
         return "Se guardo el historial de compra con el siguiente ID: " + historialDeCompra.getId_historial();
     }
 
     public HistorialDeCompra buscarporId(String id_historial){
-        return historialdecompracontroller.findById(id_historial).orElse(null);
+        return historialdecomprarepository.findById(id_historial).orElse(null);
     }
 
     public String eliminarPorID(String id_historial){
-         historialdecompracontroller.deleteById(id_historial);
+         historialdecomprarepository.deleteById(id_historial);
         return "Se elimino el Historial con el siguiente ID: " + id_historial;
+    }
+
+    public String actualizarhistorial(HistorialDeCompra historialDeCompra){
+        historialdecomprarepository.save(historialDeCompra);
+        return "Se actualizo el Historial con id: "+ historialDeCompra.getId_historial();
     }
 }
