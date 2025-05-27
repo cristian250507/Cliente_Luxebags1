@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Cliente_LuxeBags.ClienteLuxeBags.Model.Cliente;
 import Cliente_LuxeBags.ClienteLuxeBags.Model.HistorialDeCompra;
 import Cliente_LuxeBags.ClienteLuxeBags.Service.HistorialDeCompraService;
 
@@ -37,6 +36,11 @@ public class HistorialController {
 
     @PostMapping("/guardar")
     public ResponseEntity<String> guardarHistorial(@RequestBody HistorialDeCompra historial) {
+        HistorialDeCompra historialExiste = historialDeCompraService.buscarporId(historial.getId_historial());
+        if (historialExiste != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El ID proporcionado ya existe en la base de datos.");
+        }
+
         String mensaje = historialDeCompraService.guardarHistorial(historial);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensaje);
     }
