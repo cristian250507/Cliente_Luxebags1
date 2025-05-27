@@ -52,6 +52,30 @@ public class ClienteController {
 
     @PostMapping("/guardar/clientes")
     public ResponseEntity<String> guardarClientes(@RequestBody List<Cliente> clientes) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getNombres().isEmpty() ||
+                cliente.getApellidos().isEmpty() ||
+                cliente.getCorreoElectronico().isEmpty() ||
+                cliente.getFechaNacimiento().isEmpty() ||
+                cliente.getTelefono().isEmpty() ||
+                cliente.getRut().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Todos los campos son obligatorios.");
+            }
+
+            Cliente clienteExistente = clienteservice.buscarPorRut(cliente.getRut());
+
+
+            if (clienteExistente != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Ya existe un cliente con el RUT: " + cliente.getRut());
+            }
+            
+            String mensaje = clienteservice.guardarCliente(cliente);
+            if (mensaje.contains("Esa id de dirección ya fue agregada a otro cliente")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(mensaje);
+            }
+        }
         
         String mensaje = clienteservice.guardarClientes(clientes);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensaje);
@@ -63,14 +87,25 @@ public class ClienteController {
 
     @PostMapping("/guardar")
     public ResponseEntity<String> guardarCliente(@RequestBody Cliente cliente) {
+        if (cliente.getNombres().isEmpty() ||
+            cliente.getApellidos().isEmpty() ||
+            cliente.getCorreoElectronico().isEmpty() ||
+            cliente.getFechaNacimiento().isEmpty() ||
+            cliente.getTelefono().isEmpty() ||
+            cliente.getRut().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Todos los campos son obligatorios.");
+        }
+
         Cliente clienteExistente = clienteservice.buscarPorRut(cliente.getRut());
+
+
         if (clienteExistente != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("Ya existe un cliente con el RUT: " + cliente.getRut());
         }
         
         String mensaje = clienteservice.guardarCliente(cliente);
-        if (mensaje.contains("Esa id de dirección ya fue agregada")) {
+        if (mensaje.contains("Esa id de dirección ya fue agregada a otro cliente")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(mensaje);
         }

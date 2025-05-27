@@ -64,7 +64,7 @@ public class HistorialController {
     public ResponseEntity<String> actualizarHistorial(@RequestBody HistorialDeCompra historialdecompra) {
         HistorialDeCompra historialdecompraExiste = historialDeCompraService.buscarporId(historialdecompra.getId_historial());
         if (historialdecompraExiste == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Historial con id: "+ historialdecompraExiste.getId_historial()+ "no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Historial con id: "+ historialdecompra.getId_historial()+ "no encontrado");
         }
         historialdecompraExiste.setFecha_compra(historialdecompra.getFecha_compra());
         historialdecompraExiste.setMonto(historialdecompra.getMonto());
