@@ -70,13 +70,7 @@ public class ClienteController {
                     .body("Ya existe un cliente con el RUT: " + cliente.getRut());
             }
             
-            String mensaje = clienteservice.guardarCliente(cliente);
-            if (mensaje.contains("Esa id de dirección ya fue agregada a otro cliente")) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(mensaje);
-            }
         }
-        
         String mensaje = clienteservice.guardarClientes(clientes);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensaje);
         
@@ -116,7 +110,7 @@ public class ClienteController {
     public ResponseEntity<String> actualizarCliente(@RequestBody Cliente cliente) {
         Cliente clienteExtistente =  clienteservice.buscarPorRut(cliente.getRut());
         if (clienteExtistente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente con rut"+ cliente.getIdCliente()+ "no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente con rut no encontrado");
         }
         clienteExtistente.setNombres(cliente.getNombres());
         clienteExtistente.setApellidos(cliente.getApellidos());

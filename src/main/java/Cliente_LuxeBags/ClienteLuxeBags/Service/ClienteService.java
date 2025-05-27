@@ -52,7 +52,7 @@ public class ClienteService {
 
     public String eliminarCliente(Integer idCliente){
         clienterepository.deleteById(idCliente);
-        return "Cliente: "+ idCliente + "eliminado con exito";
+        return "Cliente: "+ idCliente + " eliminado con exito";
     }
 
     public Cliente buscarPorId (Integer idCliente){
