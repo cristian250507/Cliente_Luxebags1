@@ -37,13 +37,10 @@ public class HistorialController {
 
     @PostMapping("/guardar")
     public ResponseEntity<String> guardarHistorial(@RequestBody HistorialDeCompra historial) {
-        HistorialDeCompra historialExiste = historialDeCompraService.buscarporId(historial.getId_historial());
-        if (historialExiste!=null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra el ID");
-        }
         String mensaje = historialDeCompraService.guardarHistorial(historial);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensaje);
     }
+
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarVenta(@PathVariable("id") String id) {

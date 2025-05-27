@@ -1,4 +1,4 @@
-# Gestión y Administración de Clientes y Compras - Microservicio
+# Gestión y Administración de Clientes - Microservicio
 
 ## Descripción
  Este microservicio está desarrollado con Spring Boot y Maven para gestionar clientes, sus direcciones, y el historial de compras asociado. Las operaciones incluyen la creación, actualización, eliminación y consulta de clientes y sus datos relacionados. El diseño sigue una arquitectura en capas: Model, Repository, Service y Controller, y expone funcionalidades mediante APIs REST.
@@ -39,8 +39,6 @@ Define los endpoints REST para exponer las operaciones CRUD. Se implementan vali
 `Cliente` incluye información personal y está relacionado directamente con una Direccion mediante una relación @OneToOne.
 
 `Historial de compra` permite rastrear múltiples compras por cliente a través de una relación @ManyToOne.
-
-Los roles se asignan directamente como atributos en las entidades de usuario al momento de su creación.
 
 ## Funcionalidades principales
 

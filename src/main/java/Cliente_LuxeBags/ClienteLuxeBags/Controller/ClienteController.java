@@ -63,7 +63,6 @@ public class ClienteController {
 
     @PostMapping("/guardar")
     public ResponseEntity<String> guardarCliente(@RequestBody Cliente cliente) {
-        // Validar si ya existe un cliente con el mismo RUT
         Cliente clienteExistente = clienteservice.buscarPorRut(cliente.getRut());
         if (clienteExistente != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
