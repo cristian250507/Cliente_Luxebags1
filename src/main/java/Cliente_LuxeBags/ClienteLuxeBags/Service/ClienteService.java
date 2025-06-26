@@ -14,8 +14,9 @@ import jakarta.transaction.Transactional;
 public class ClienteService {
 
     @Autowired
-
     private ClienteRepository clienterepository;
+
+    
 
     public List<Cliente> listarClientes(){
         return clienterepository.findAll();
@@ -74,6 +75,8 @@ public class ClienteService {
     public Cliente buscarPorIdDireccion(String idDireccion) {
         return clienterepository.findByDireccionId(idDireccion);
     }
+
+    
 
 
 

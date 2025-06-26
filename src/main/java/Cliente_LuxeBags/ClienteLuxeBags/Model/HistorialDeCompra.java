@@ -25,10 +25,4 @@ public class HistorialDeCompra {
 
     @Column(nullable = false)
     private Double monto;
-
-    
-    
-
-
-
 }

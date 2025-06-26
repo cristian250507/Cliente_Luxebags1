@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import Cliente_LuxeBags.ClienteLuxeBags.Model.HistorialDeCompra;
 import Cliente_LuxeBags.ClienteLuxeBags.Service.HistorialDeCompraService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,21 +25,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/historial")
+@Tag(name = "Historial", description = "Operaciones relacionadas con historial")
 public class HistorialController {
 
     @Autowired
     private HistorialDeCompraService historialDeCompraService;
 
     @GetMapping("/listar")
+    @Operation(
+        summary = "Listar historial de compras",
+        description = "Devuelve una lista con todos los historiales de compra registrados.")
     public ResponseEntity<List<HistorialDeCompra>> listarHistorial() {
         List<HistorialDeCompra> historial = historialDeCompraService.listarHistorial();
-
-
         return ResponseEntity.ok(historial);
     }
     
 
     @PostMapping("/guardar")
+    @Operation(
+        summary = "Guardar un historial de compra",
+        description = "Guarda un nuevo historial de compra. Si el ID ya existe, retorna un error 400."
+    )
     public ResponseEntity<String> guardarHistorial(@RequestBody HistorialDeCompra historial) {
         HistorialDeCompra historialExiste = historialDeCompraService.buscarporId(historial.getId_historial());
         if (historialExiste != null) {
@@ -50,6 +58,9 @@ public class HistorialController {
 
 
     @DeleteMapping("/eliminar/{id}")
+    @Operation(
+        summary = "Eliminar historial de compra por ID",
+        description = "Elimina un historial de compra dado su ID. Retorna 404 si no se encuentra.")
     public ResponseEntity<String> eliminarVenta(@PathVariable("id") String id) {
         HistorialDeCompra historialDeCompra = historialDeCompraService.buscarporId(id);
         if (historialDeCompra == null) {
@@ -61,6 +72,9 @@ public class HistorialController {
     }
 
     @PutMapping("/actualizar")
+    @Operation(
+        summary = "Actualizar historial de compra",
+        description = "Actualiza un historial de compra existente. Si el historial no existe, retorna 404.")
     public ResponseEntity<String> actualizarHistorial(@RequestBody HistorialDeCompra historialdecompra) {
         HistorialDeCompra historialdecompraExiste = historialDeCompraService.buscarporId(historialdecompra.getId_historial());
         if (historialdecompraExiste == null) {

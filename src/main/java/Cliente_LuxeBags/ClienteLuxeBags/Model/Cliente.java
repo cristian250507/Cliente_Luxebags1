@@ -43,15 +43,10 @@ public class Cliente {
     private String telefono;
 
     @OneToOne
-    @JoinColumn(name = "id_direccion", nullable = false)
+    @JoinColumn(name = "id_dirrecion", nullable = false)
     private Direccion direccion;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_historial", nullable = true)
     private HistorialDeCompra historialdecompra;
-    
-
-
-
-
 }
