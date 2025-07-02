@@ -2,7 +2,6 @@ package Cliente_LuxeBags.ClienteLuxeBags.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,8 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import Cliente_LuxeBags.ClienteLuxeBags.Model.Cliente;
 import Cliente_LuxeBags.ClienteLuxeBags.Model.Direccion;
@@ -77,7 +74,7 @@ public class ClienteServiceTest {
 
     @Test
     public void testGuardarCliente() {
-        // Simula que no existe ningún cliente con esa dirección
+
         when(clienteRepository.findByDireccionId("DIR001")).thenReturn(null);
         when(clienteRepository.save(cliente)).thenReturn(cliente);
 
@@ -117,12 +114,6 @@ public class ClienteServiceTest {
         assertNotNull(encontrado);
         assertEquals("Juan", encontrado.getNombres());
     }
-
-
-
-
-
-
 }
 
 

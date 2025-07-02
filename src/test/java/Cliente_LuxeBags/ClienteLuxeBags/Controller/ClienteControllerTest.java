@@ -2,9 +2,7 @@ package Cliente_LuxeBags.ClienteLuxeBags.Controller;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -75,16 +73,15 @@ public class ClienteControllerTest {
 
     @Test
     public void testGuardarCliente() throws Exception {
-        // Simula que el servicio guardarCliente devuelve un mensaje indicando que el cliente fue guardado correctamente.
         when(clienteService.guardarCliente(any(Cliente.class)))
             .thenReturn("Cliente 11111111-1 guardado con éxito");
 
-        // Realiza una petición POST a /guardar, pasando un cliente como cuerpo de la solicitud.
+
         mockMvc.perform(post("/cliente/guardar")
-                .contentType(MediaType.APPLICATION_JSON)  // Establece el tipo de contenido como JSON
-                .content(objectMapper.writeValueAsString(cliente)))  // Convierte el objeto Cliente a JSON
-            .andExpect(status().isCreated())  // Espera que el código de estado sea 201 (CREATED)
-            .andExpect(content().string("Cliente 11111111-1 guardado con éxito"));  // Verifica que el mensaje de respuesta sea correcto
+                .contentType(MediaType.APPLICATION_JSON)  
+                .content(objectMapper.writeValueAsString(cliente)))  
+            .andExpect(status().isCreated())  
+            .andExpect(content().string("Cliente 11111111-1 guardado con éxito"));  
     }
 
 
@@ -103,10 +100,9 @@ public class ClienteControllerTest {
         when(clienteService.buscarPorId(1)).thenReturn(cliente);
         when(clienteService.eliminarCliente(1)).thenReturn("Cliente 1 eliminado con éxito");
 
-        // Realiza una petición DELETE a /cliente/eliminar/1
         mockMvc.perform(delete("/cliente/eliminar/1"))
-            .andExpect(status().isOk())  // Espera que el estado de la respuesta sea 200 OK
-            .andExpect(content().string("Cliente 1 eliminado con éxito"));  // Verifica que el mensaje sea el correcto
+            .andExpect(status().isOk())  
+            .andExpect(content().string("Cliente 1 eliminado con éxito"));  
     }
 
 
@@ -116,15 +112,15 @@ public class ClienteControllerTest {
     
         when(clienteService.actualizarCliente(any(Cliente.class))).thenReturn("Cliente actualizado");
 
-        // Cambia el correo electrónico del cliente para probar la actualización
+
         cliente.setCorreoElectronico("nuevo@email.com");
 
-        // Realiza la solicitud PUT a /cliente/actualizar
+ 
         mockMvc.perform(put("/cliente/actualizar")
-                        .contentType(MediaType.APPLICATION_JSON) // Tipo de contenido JSON
-                        .content(objectMapper.writeValueAsString(cliente)))  // Cuerpo de la solicitud con el cliente actualizado
-                .andExpect(status().isOk())  // Espera un estado HTTP 200 OK
-                .andExpect(content().string("Cliente actualizado"));  // Verifica el mensaje en el cuerpo de la respuesta
+                        .contentType(MediaType.APPLICATION_JSON) 
+                        .content(objectMapper.writeValueAsString(cliente)))  
+                .andExpect(status().isOk())  
+                .andExpect(content().string("Cliente actualizado"));  
     }
 
 

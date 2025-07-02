@@ -21,12 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-
-
-
-
 @RestController
 @RequestMapping("/cliente")
 @Tag(name = "Clientes", description = "Operaciones relacionadas con clientes")
@@ -50,7 +44,7 @@ public class ClienteController {
     public ResponseEntity<Cliente> listarClientePorId(@PathVariable Integer idCliente) {
         Cliente cliente = clienteservice.buscarPorId(idCliente);
         if (cliente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // ✅ ahora sí retorna
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
         }
         return ResponseEntity.ok(cliente);
     }
@@ -125,7 +119,7 @@ public class ClienteController {
         clienteExtistente.setFechaNacimiento(cliente.getFechaNacimiento());
         clienteExtistente.setDireccion(cliente.getDireccion());
         String mensaje = clienteservice.actualizarCliente(clienteExtistente);
-        return ResponseEntity.ok(mensaje);  // 200 OK con el mensaje de éxito
+        return ResponseEntity.ok(mensaje);  
     }
 
     @DeleteMapping("/eliminar/{id}")

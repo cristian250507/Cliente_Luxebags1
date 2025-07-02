@@ -1,7 +1,7 @@
 package Cliente_LuxeBags.ClienteLuxeBags.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client;
+
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
@@ -60,7 +60,6 @@ public class ClienteControllerV2 {
             return ResponseEntity.badRequest().body(resultado);
         }
 
-        // Recuperar el cliente guardado desde la base de datos
         Cliente guardado = clienteService.buscarPorRut(cliente.getRut());
 
         return ResponseEntity

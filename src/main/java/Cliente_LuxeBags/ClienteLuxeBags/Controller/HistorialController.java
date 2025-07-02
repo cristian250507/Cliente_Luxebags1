@@ -68,7 +68,7 @@ public class HistorialController {
         }
 
         String mensaje = historialDeCompraService.eliminarPorID(id);
-        return ResponseEntity.ok(mensaje);  // 200 OK con el mensaje de éxito
+        return ResponseEntity.ok(mensaje);  
     }
 
     @PutMapping("/actualizar")
@@ -83,7 +83,7 @@ public class HistorialController {
         historialdecompraExiste.setFecha_compra(historialdecompra.getFecha_compra());
         historialdecompraExiste.setMonto(historialdecompra.getMonto());
         String mensaje = historialDeCompraService.actualizarhistorial(historialdecompraExiste);
-        return ResponseEntity.ok(mensaje);  // 200 OK con el mensaje de éxito
+        return ResponseEntity.ok(mensaje);  
     }
 
 

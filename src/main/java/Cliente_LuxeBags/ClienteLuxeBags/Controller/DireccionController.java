@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Cliente_LuxeBags.ClienteLuxeBags.Model.Cliente;
+
 import Cliente_LuxeBags.ClienteLuxeBags.Model.Direccion;
 import Cliente_LuxeBags.ClienteLuxeBags.Service.DireccionService;
 import io.swagger.v3.oas.annotations.Operation;

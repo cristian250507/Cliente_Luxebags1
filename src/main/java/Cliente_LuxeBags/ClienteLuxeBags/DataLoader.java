@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import net.datafaker.Faker;
-import Cliente_LuxeBags.ClienteLuxeBags.Controller.DireccionController;
+
 import Cliente_LuxeBags.ClienteLuxeBags.Model.Cliente;
 import Cliente_LuxeBags.ClienteLuxeBags.Model.Direccion;
 import Cliente_LuxeBags.ClienteLuxeBags.Model.HistorialDeCompra;
@@ -13,8 +13,7 @@ import Cliente_LuxeBags.ClienteLuxeBags.Repository.ClienteRepository;
 import Cliente_LuxeBags.ClienteLuxeBags.Repository.DireccionRepository;
 import Cliente_LuxeBags.ClienteLuxeBags.Repository.HistorialDeCompraRepository;
 
-import java.math.BigDecimal;
-import java.sql.Date;
+
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -40,7 +39,7 @@ public class DataLoader implements CommandLineRunner{
         Random random = new Random();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        //Generar historiales
+
         for (int i = 0 ; i<5; i++) {
             HistorialDeCompra historialDeCompra =  new HistorialDeCompra();
             historialDeCompra.setId_historial(UUID.randomUUID().toString());
@@ -50,7 +49,6 @@ public class DataLoader implements CommandLineRunner{
             java.sql.Date.valueOf("2023-01-01"),
             java.sql.Date.valueOf("2025-01-01"));
 
-            // Formatear la fecha a String yyyy-MM-dd
             String fechaString = sdf.format(fechaUtil);
             historialDeCompra.setFecha_compra(fechaString);
 
@@ -63,7 +61,7 @@ public class DataLoader implements CommandLineRunner{
             Direccion direccion = new Direccion();
             direccion.setId_direccion(UUID.randomUUID().toString());
 
-            // Generar datos falsos para la dirección
+
             direccion.setCalle(faker.address().streetAddress());
             direccion.setCiudad(faker.address().city());
             direccion.setCodigoPostal(faker.address().zipCode());
@@ -75,10 +73,7 @@ public class DataLoader implements CommandLineRunner{
 
         List<Direccion> direcciones = direccionRepository.findAll();
         List<HistorialDeCompra> historiales = historialdecomprarepository.findAll();
-
         for (int i = 0; i < 5; i++) {
-
-
             Cliente cliente = new Cliente();
             String rut;
             do {
@@ -94,7 +89,6 @@ public class DataLoader implements CommandLineRunner{
             cliente.setTelefono(faker.phoneNumber().cellPhone());
             cliente.setHistorialdecompra(historiales.get(i));
             cliente.setDireccion(direcciones.get(i));
-
             clienterepository.save(cliente);
         }
 
